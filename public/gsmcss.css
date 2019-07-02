@@ -8,7 +8,7 @@ img {
     height:auto;
 }
 body{
-    background-image: url('학교.png');
+    background-image: url('images/학교.png');
     background-attachment: fixed;
     background-size:cover;
 }
