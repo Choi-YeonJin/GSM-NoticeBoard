@@ -12,26 +12,6 @@ var app = express();
 
 mongoose.connect('mongodb://localhost/Network', { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
-var mongoose = require('mongoose');
-
-var studentSchema = mongoose.Schema({
-    number: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    name: String,
-    id: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-        default: '123456789'
-    },
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,20 +37,3 @@ db.once('open', function () {
 var server = app.listen(8000, function () {
   console.log("server on");
 });
-
-exports.UserLogin=function(id,pw,callback){
-  if(!db) return;
-  var login = db.collection('User').find({"id" : id, "password" : pw});
-  login.toArray(function(err,docs){
-    if(err){
-      callback(err,null);
-    }
-    else if(docs){
-      callback(null,docs);
-    }
-    else{
-      callback(null,null);
-    }
-  }
-  );
-};
