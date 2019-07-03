@@ -3,16 +3,13 @@ var createError = require('http-errors'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
-  mongoose = require('mongoose');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
+  mongoose = require('mongoose'),
+  indexRouter = require('./routes/index'),
+  usersRouter = require('./routes/users'),
+  app = express();
 
 mongoose.connect('mongodb://localhost:27017/Network', { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
-var mongoose = require('mongoose');
 
 var db = mongoose.connection;
 
@@ -34,8 +31,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter);
+app.use('/index', indexRouter);
 
 exports.UserLogin = function (id, pw, callback) {
   if (!db) return;
