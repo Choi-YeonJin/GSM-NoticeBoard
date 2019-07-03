@@ -34,6 +34,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', usersRouter);
 app.use('/index', indexRouter);
 
+//catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
 exports.UserLogin = function (id, pw, callback) {
   if (!db) return;
   var login = db.collection('User').find({ "id": id, "password": pw });
