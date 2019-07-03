@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var model=require('../app');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -12,7 +13,17 @@ router.get('/login', function (req, res, next) {
 
 router.post('/login', function (req, res) {
   console.log(`post in`);
-  console.log('login sucseece')
+  model.UserLogin(req.body.userName,req.body.userPassword,function(err,docs){
+    if(err){
+      console.log(err);
+    }
+    else if(docs.length>0){
+      console.log('login suceess');
+    }
+    else{
+      res.redirect('/login');
+    }
+  });
 });
 
 module.exports = router;
