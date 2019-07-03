@@ -19,7 +19,7 @@ var db = mongoose.connection;
 db.once('open', function () {
   console.log("db서버에 연결되었습니다");
 });
-db.on("error",function (err) {
+db.on("error", function (err) {
   console.log("DB ERROR :", err);
 });
 
@@ -37,18 +37,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-exports.UserLogin=function(id,pw,callback){
-  if(!db) return;
-  var login = db.collection('User').find({"id" : id, "password" : pw});
-  login.toArray(function(err,docs){
-    if(err){
-      callback(err,null);
+exports.UserLogin = function (id, pw, callback) {
+  if (!db) return;
+  var login = db.collection('User').find({ "id": id, "password": pw });
+  login.toArray(function (err, docs) {
+    if (err) {
+      callback(err, null);
     }
-    else if(docs){
-      callback(null,docs);
+    else if (docs) {
+      callback(null, docs);
     }
-    else{
-      callback(null,null);
+    else {
+      callback(null, null);
     }
   }
   );
