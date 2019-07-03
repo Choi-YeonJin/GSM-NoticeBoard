@@ -11,6 +11,10 @@ router.get('/login', function (req, res, next) {
   res.render('index');
 });
 
+router.get('/home', function (req, res, next) {
+  res.render('home');
+});
+
 router.post('/login', function (req, res) {
   console.log(`post in`);
   model.UserLogin(req.body.userName,req.body.userPassword,function(err,docs){
@@ -19,6 +23,7 @@ router.post('/login', function (req, res) {
     }
     else if(docs.length>0){
       console.log('login suceess');
+      res.redirect('/home');
     }
     else{
       res.redirect('/login');
