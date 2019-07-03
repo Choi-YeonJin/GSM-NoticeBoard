@@ -23,25 +23,6 @@ db.on("error",function (err) {
   console.log("DB ERROR :", err);
 });
 
-var studentSchema = mongoose.Schema({
-    number: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    name: String,
-    id: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-        default: '123456789'
-    },
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -55,10 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-var server = app.listen(8000, function () {
-  console.log("server on");
-});
 
 exports.UserLogin=function(id,pw,callback){
   if(!db) return;
@@ -76,3 +53,5 @@ exports.UserLogin=function(id,pw,callback){
   }
   );
 };
+
+module.exports = app;
