@@ -14,6 +14,15 @@ mongoose.connect('mongodb://localhost/Network', { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var mongoose = require('mongoose');
 
+var db = mongoose.connection;
+
+db.once('open', function () {
+  console.log("db서버에 연결되었습니다");
+});
+db.on("error",function (err) {
+  console.log("DB ERROR :", err);
+});
+
 var studentSchema = mongoose.Schema({
     number: {
         type: String,
@@ -46,13 +55,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-var db = mongoose.connection;
-
-db.on('error', console.error);
-db.once('open', function () {
-  console.log("db서버에 연결되었습니다");
-});
 
 var server = app.listen(8000, function () {
   console.log("server on");
