@@ -19,27 +19,8 @@ var db = mongoose.connection;
 db.once('open', function () {
   console.log("db서버에 연결되었습니다");
 });
-db.on("error",function (err) {
+db.on("error", function (err) {
   console.log("DB ERROR :", err);
-});
-
-var studentSchema = mongoose.Schema({
-    number: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    name: String,
-    id: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-        default: '123456789'
-    },
 });
 
 // view engine setup
@@ -56,23 +37,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-var server = app.listen(8000, function () {
-  console.log("server on");
-});
-
-exports.UserLogin=function(id,pw,callback){
-  if(!db) return;
-  var login = db.collection('User').find({"id" : id, "password" : pw});
-  login.toArray(function(err,docs){
-    if(err){
-      callback(err,null);
+exports.UserLogin = function (id, pw, callback) {
+  if (!db) return;
+  var login = db.collection('User').find({ "id": id, "password": pw });
+  login.toArray(function (err, docs) {
+    if (err) {
+      callback(err, null);
     }
-    else if(docs){
-      callback(null,docs);
+    else if (docs) {
+      callback(null, docs);
     }
-    else{
-      callback(null,null);
+    else {
+      callback(null, null);
     }
   }
   );
 };
+
+module.exports = app;
