@@ -1,24 +1,25 @@
 var express = require('express');
-var router = express.Router();
-var model = require('../models/db');
-
+    router = express.Router(),
+    crypto = require('crypto'),
+    model = require('../models/db');
+    
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('index');
+  res.render('index', { title: 'index' });
 });
 
 router.get('/home', function (req, res, next) {
-  res.render('home');
+  res.render('home', { title: 'home' });
 });
 
 router.post('/login', function (req, res) {
   console.log(`post in`);
   model.UserLogin(req.body.userName, req.body.userPassword, function (err, docs) {
-    if (err) {
+    if (err) {                     
       console.log(err);
     }
     else if (docs.length > 0) {

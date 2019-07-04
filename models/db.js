@@ -1,4 +1,10 @@
 const mongoose = require('mongoose');
+var crypto = require('crypto');
+
+var shasum = crypto.createHash('sha256');
+// shasum.update('123456789');
+// var output = shasum.digest('hex');
+
 
 mongoose.connect('mongodb://localhost:27017/Network', { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
@@ -14,7 +20,10 @@ db.on("error", function (err) {
 
 exports.UserLogin = function (id, pw, callback) {
     if (!db) return;
-    var login = db.collection('User ').find({ "id": id, "password": pw });
+    shasum.update(pw);
+    var hashpw = shasum.digest('hex');
+    var login = db.collection('User').find({ "id": id, "password": hashpw });
+
     login.toArray(function (err, docs) {
       if (err) {
         callback(err, null);
