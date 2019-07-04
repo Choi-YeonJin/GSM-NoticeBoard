@@ -3,25 +3,9 @@ var createError = require('http-errors'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
-  mongoose = require('mongoose');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
-
-mongoose.connect('mongodb://localhost:27017/Network', { useNewUrlParser: true });
-mongoose.Promise = global.Promise;
-var mongoose = require('mongoose');
-
-var db = mongoose.connection;
-
-db.once('open', function () {
-  console.log("db서버에 연결되었습니다");
-});
-db.on("error", function (err) {
-  console.log("DB ERROR :", err);
-});
+  indexRouter = require('./routes/index'),
+  usersRouter = require('./routes/users'),
+  app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,24 +18,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter);
+app.use('/index', indexRouter);
 
-exports.UserLogin = function (id, pw, callback) {
-  if (!db) return;
-  var login = db.collection('User').find({ "id": id, "password": pw });
-  login.toArray(function (err, docs) {
-    if (err) {
-      callback(err, null);
-    }
-    else if (docs) {
-      callback(null, docs);
-    }
-    else {
-      callback(null, null);
-    }
-  }
-  );
-};
+//catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
 module.exports = app;
