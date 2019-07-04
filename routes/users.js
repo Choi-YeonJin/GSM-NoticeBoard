@@ -5,6 +5,7 @@ var express = require('express');
     
 /* GET users listing. */
 router.get('/', function (req, res, next) {
+  
   res.render('index', { title: 'Express' });
 });
 
@@ -13,7 +14,7 @@ router.get('/login', function (req, res, next) {
 });
 
 router.get('/home', function (req, res, next) {
-  res.render('home', { title: 'home' });
+  res.render('home', { title: req.session.User.name});
 });
 
 router.post('/login', function (req, res) {
@@ -23,7 +24,9 @@ router.post('/login', function (req, res) {
       console.log(err);
     }
     else if (docs.length > 0) {
+      console.log(docs[0]['name']);
       console.log('login suceess');
+      req.session.User = docs[0];
       res.redirect('/home');
     }
     else {
@@ -31,6 +34,13 @@ router.post('/login', function (req, res) {
       res.redirect('/login');
     }
   });
+});
+
+router.post('/logout', function (req, res) {
+  req.session.destroy(function(){
+    req.session;
+    }); 
+  res.redirect('/');
 });
 
 module.exports = router;

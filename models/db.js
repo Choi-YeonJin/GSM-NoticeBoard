@@ -37,3 +37,19 @@ exports.UserLogin = function (id, pw, callback) {
     }
     );
   };
+exports.Username = function(name,callback){
+  if(!db) return;
+  var name = db.collection('User').find({"name":name})
+  name.toArray(function (err, docs) {
+    if (err) {
+      callback(err, null);
+    }
+    else if (docs) {
+      callback(null, docs);
+    }
+    else {
+      callback(null, null);
+    }
+  }
+  );
+};
