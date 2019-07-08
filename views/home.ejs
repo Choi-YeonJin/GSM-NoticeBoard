@@ -11,9 +11,16 @@
     <title>GSM 건의</title>
 </head>
 <body>
-<div>
-    <h3>건의 사항</h3>
-</div>
+    <h3 style="float: left">건의 사항</h3>
+    <br>
+    <a href="/index/change_pw" style='border:2px;padding: 1px 6px;color: black;float: right;-webkit-appearance: button;cursor: pointer;'>비밀번호 변경</a>
+    <form action="/index/logout" method="GET">
+        <input type="submit" value="로그아웃">
+    </form>
+<br>
+<br>
+<br>
+<br>
 <div class="container">
     <div class="notice notice-success">
         <strong>GSM 건의(1)</strong> notice-success <span class="pull-right text-success readMore">Read</span>
@@ -102,5 +109,7 @@ $(this).next().toggle(function(){
 })
 });})
 </script>
+
+
 </body>
 </html>

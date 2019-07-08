@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 var crypto = require('crypto');
 
-var shasum = crypto.createHash('sha256');
+
 // shasum.update('123456789');
 // var output = shasum.digest('hex');
 
@@ -20,7 +20,9 @@ db.on("error", function (err) {
 
 exports.UserLogin = function (id, pw, callback) {
     if (!db) return;
+    var shasum = crypto.createHash('sha256');
     shasum.update(pw);
+    //shasum.end();
     var hashpw = shasum.digest('hex');
     var login = db.collection('User').find({ "id": id, "password": hashpw });
 

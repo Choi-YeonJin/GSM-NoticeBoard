@@ -6,6 +6,7 @@ var createError = require('http-errors'),
   indexRouter = require('./routes/index'),
   usersRouter = require('./routes/users'),
   app = express();
+const session = require('express-session');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,6 +18,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(session({
+  key:'sid',
+  secret:'secret',
+  cookie: {
+    maxAge: 1000*60*60
+  }
+}));
 
 app.use('/', usersRouter);
 app.use('/index', indexRouter);

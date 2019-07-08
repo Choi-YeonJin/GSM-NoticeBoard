@@ -5,15 +5,16 @@ var express = require('express');
     
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express',session: req.session });
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('index', { title: 'index' });
+  res.render('index', { title: 'index', session: req.session.data });
+  
 });
 
 router.get('/home', function (req, res, next) {
-  res.render('home', { title: 'home' });
+  res.render('home', { title: 'home',session: req.session.data });
 });
 
 router.post('/login', function (req, res) {
@@ -24,6 +25,8 @@ router.post('/login', function (req, res) {
     }
     else if (docs.length > 0) {
       console.log('login suceess');
+      req.session.data = docs;
+      console.log('session suceess');
       res.redirect('/home');
     }
     else {
@@ -32,5 +35,4 @@ router.post('/login', function (req, res) {
     }
   });
 });
-
 module.exports = router;
