@@ -5,18 +5,12 @@ var express = require('express');
     
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'index', session: req.session.data, message });
 });
 
 router.get('/home', function (req, res, next) {
   res.render('home', { title: 'home',session: req.session.data });
 });
 
-router.get('/logout', function (req, res, next) {
-  req.session.destroy();
-  console.log("session destroy 성공");
-  console.log("logout");
-  res.redirect('/');
 });
 
 router.get('/mypage', function (req, res, next) {
@@ -31,9 +25,8 @@ router.post('/login', function (req, res) {
       console.log(err);
     }
     else if (docs.length > 0) {
+      console.log(docs[0]['name']);
       console.log('login suceess');
-      req.session.data = docs;
-      console.log('session suceess');
       res.redirect('/home');
     }
     else {
@@ -42,10 +35,6 @@ router.post('/login', function (req, res) {
     }
   });
 });
-
-router.post('/change_pw', function (req, res, next) {
-
-  console.log(`button sucess`);
   res.redirect('/');
 });
 
