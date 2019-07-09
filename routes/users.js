@@ -34,7 +34,7 @@ router.post('/login', function (req, res) {
       console.log('login suceess');
       req.session.data = docs;
       console.log('session suceess');
-      res.redirect('/home');
+      res.render('home', { title: 'index', name: req.session.data[0].name ,session: req.session.data, message });
     }
     else {
       console.log('login error');
@@ -44,8 +44,19 @@ router.post('/login', function (req, res) {
 });
 
 router.post('/change_pw', function (req, res, next) {
-
   console.log(`button sucess`);
+  model.ChangePassword(req.body.변경비밀번호, function (err, docs) {
+    if (err) {                     
+      console.log(err);
+    }
+    else if (docs.length > 0) {
+      console.log('pw 변경');
+    }
+    else {
+      console.log('비밀번호 틀림ㅗㅗㅗㅗㅗㅗ');
+      res.render('index', { title: 'index', message:1 });
+    }
+  });
   res.redirect('/');
 });
 
