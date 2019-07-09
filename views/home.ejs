@@ -11,16 +11,78 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-
-        
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <br>
-            <h1>
-                GSM 건의
-            </h1>
-            <h3>><%=title></h3><br><br>
+    <h3 style="float: left">건의 사항</h3>
+    <br>
+    <a href="/mypage" style='border:2px;padding: 1px 6px;color: black;float: right;-webkit-appearance: button;cursor: pointer;'>마이페이지</a>
+    <form action="/logout" method="GET">
+        <input type="submit" value="로그아웃">
+    </form>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="notice notice-success">
+        <strong>GSM 건의(1)</strong> notice-success <span class="pull-right text-success readMore">Read</span>
+        <div class="desc">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>        
+        </div>
+    </div>
+    <div class="notice notice-danger">
+        <strong>GSM 건의(2)</strong> notice-danger  <span class="pull-right text-danger readMore">Read</span>
+            <div class="desc">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>        
+        </div>
+    </div>
+    <div class="notice notice-info">
+        <strong>GSM 건의(3)</strong> notice-info  <span class="pull-right text-info readMore">Read</span>
+            <div class="desc">
+            
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>        
+        </div>
+    </div>
+    <div class="notice notice-warning">
+        <strong>GSM 건의(4)</strong> notice-warning  <span class="pull-right text-warning readMore">Read</span>
+            <div class="desc">
+            
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>        
+        </div>
+    </div>
+    <div class="notice notice-lg">
+        <strong>GSM 건의(5)</strong> notice-lg  <span class="pull-right readMore">Read</span>
+            <div class="desc">
+            
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>        
+        </div>
+    </div>
+    <div class="notice notice-sm">
+        <strong>GSM 건의(6)</strong> notice-sm  <span class="pull-right readMore">Read</span>
+            <div class="desc">
             
             <table class="table table-condensed table-hover">
                 <thead>
@@ -79,5 +141,21 @@
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function(){
+
+
+$(".readMore").click(function(){
+var This=$(this);    
+$(this).next().toggle(function(){
+    if(This.text()=="Read"){
+      This.text("Hide") 
+    }
+    else{
+        This.text("Read") 
+    }
+})
+});})
+</script>
 </body>
 </html>

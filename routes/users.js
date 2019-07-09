@@ -5,18 +5,19 @@ var express = require('express');
     
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  
-  res.render('index', { title: 'Express' });
-});
-
-router.get('/login', function (req, res, next) {
-  res.render('index', { title: 'index' });
 });
 
 router.get('/home', function (req, res, next) {
-  res.render('home', { title: req.session.User.name});
+  res.render('home', { title: 'home',session: req.session.data });
 });
 
+});
+
+router.get('/mypage', function (req, res, next) {
+  console.log(`mypage button sucess`);
+  res.render('change_pw', { title: 'mypage',session: req.session });
+});
+var message;
 router.post('/login', function (req, res) {
   console.log(`post in`);
   model.UserLogin(req.body.userName, req.body.userPassword, function (err, docs) {
@@ -26,20 +27,14 @@ router.post('/login', function (req, res) {
     else if (docs.length > 0) {
       console.log(docs[0]['name']);
       console.log('login suceess');
-      req.session.User = docs[0];
       res.redirect('/home');
     }
     else {
-      console.log('login error')
-      res.redirect('/login');
+      console.log('login error');
+      res.render('index', { title: 'index', message:1 });
     }
   });
 });
-
-router.post('/logout', function (req, res) {
-  req.session.destroy(function(){
-    req.session;
-    }); 
   res.redirect('/');
 });
 
