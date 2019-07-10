@@ -59,10 +59,9 @@ router.post('/change_pw', function (req, res, next) {
     }
     else {
       console.log('비밀번호 틀림');
-      res.render('change_pw', { title: 'change_pw', message:2 });
+      res.render('change_pw', { title: 'change_pw', message:1 });
     }
   });
-  //res.redirect('/');
 });
 
 module.exports = router;
