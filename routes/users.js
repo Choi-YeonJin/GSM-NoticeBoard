@@ -1,4 +1,5 @@
-var UserID = null;
+var UserID = null,
+    UserName = null;
 
 var express = require('express');
     router = express.Router(),
@@ -16,7 +17,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/home', function (req, res, next) {
   if(req.session.isLogin){
-    res.render('home', { title: 'home',session: req.session.data });
+    res.render('home', { title: 'home',name:UserName,session: req.session.data });
   }else{
     res.send('Login errer');
   }
@@ -31,13 +32,11 @@ router.get('/logout', function (req, res, next) {
 
 router.get('/mypage', function (req, res, next) {
   console.log(`mypage button sucess`);
-  res.render('change_pw', { title: 'mypage',session: req.session, message });
-});
-
-router.post('/register', (req, res) => {
-  let uid = req.body.user_id;
-  let upwd = req.body.password;
-  duplicate(req, res, uid, upwd);
+  if(req.session.isLogin){
+    res.render('change_pw',{ title: 'mypage',session: req.session, message });
+  }else{
+    res.send('login error');
+  }
 });
 
 router.post('/', (req, res) => {
@@ -54,7 +53,7 @@ router.post('/logout', (req, res) => {
 var message;
 router.post('/login', function (req, res) {
   console.log(`post in`);
-  model.UserLogin(req.body.userName, req.body.userPassword, function (err, docs) {
+  model.UserLogin(req.body.id, req.body.userPassword, function (err, docs) {
     if (err) {                     
       console.log(err);
     }
@@ -62,8 +61,9 @@ router.post('/login', function (req, res) {
       console.log('login suceess');
       req.session.isLogin = true;
       UserID = docs[0].id;
+      UserName = docs[0].name;
       console.log('session suceess');
-      res.redirect('/home');
+      res.render('home',{title:'home',name:docs[0].name});
     }
     else {
       console.log('login error');
@@ -73,7 +73,7 @@ router.post('/login', function (req, res) {
 });
 
 router.post('/change_pw', function (req, res, next) {
-  console.log(`button sucess`);
+  console.log(`change_pw button OK`);
   model.ChangePassword(UserID,req.body.현재비밀번호,req.body.변경비밀번호, function (err, docs) {
     if (err) {                     
       console.log(err);
@@ -85,6 +85,23 @@ router.post('/change_pw', function (req, res, next) {
     else {
       console.log('비밀번호 틀림');
       res.render('change_pw', { title: 'change_pw', message:1 });
+    }
+  });
+});
+
+router.post('/change_name',function(req,res,next){
+  console.log(`change name button OK`);
+  model.ChangeName(UserID,UserName,req.body.rename, function (err, docs) {
+    if (err) {                     
+      console.log(err);
+    }
+    else if (docs.length > 0) {
+      console.log('name 변경 OK');
+      res.redirect('/home');
+    }
+    else {
+      console.log('err');
+      res.redirect('/');
     }
   });
 });
