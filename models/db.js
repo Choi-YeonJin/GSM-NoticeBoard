@@ -48,6 +48,7 @@ exports.ChangePassword = function(id,pw,repw,callback){
     var hashpw = shasum.digest('hex');
     var repassword = db.collection('User').find({ "id": id, "password": hashpw});
   repassword.toArray(function (err, docs) {
+
     if (err) {
       callback(err, null);
     }
@@ -57,6 +58,7 @@ exports.ChangePassword = function(id,pw,repw,callback){
       var rehashpw = shasum1.digest('hex');
       db.collection('User').update({ 'id':id,'password':hashpw},
       {$set:{'id':id,'password':rehashpw}});
+
       callback(null, docs);
     }
     else {
@@ -65,3 +67,4 @@ exports.ChangePassword = function(id,pw,repw,callback){
   }
   );
 }
+
