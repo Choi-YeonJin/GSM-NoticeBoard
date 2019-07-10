@@ -1,3 +1,5 @@
+var UserID = null;
+
 var express = require('express');
     router = express.Router(),
     crypto = require('crypto'),
@@ -21,8 +23,9 @@ router.get('/logout', function (req, res, next) {
 
 router.get('/mypage', function (req, res, next) {
   console.log(`mypage button sucess`);
-  res.render('change_pw', { title: 'mypage',session: req.session });
+  res.render('change_pw', { title: 'mypage',session: req.session, message });
 });
+
 var message;
 router.post('/login', function (req, res) {
   console.log(`post in`);
@@ -34,6 +37,7 @@ router.post('/login', function (req, res) {
       console.log('login suceess');
       req.session.data = docs;
       console.log('session suceess');
+      UserID = req.session.data[0].id;
       res.render('home', { title: 'index', name: req.session.data[0].name ,session: req.session.data, message });
     }
     else {
@@ -45,19 +49,20 @@ router.post('/login', function (req, res) {
 
 router.post('/change_pw', function (req, res, next) {
   console.log(`button sucess`);
-  model.ChangePassword(req.body.변경비밀번호, function (err, docs) {
+  model.ChangePassword(UserID,req.body.현재비밀번호,req.body.변경비밀번호, function (err, docs) {
     if (err) {                     
       console.log(err);
     }
     else if (docs.length > 0) {
       console.log('pw 변경');
+      res.redirect('/');
     }
     else {
-      console.log('비밀번호 틀림ㅗㅗㅗㅗㅗㅗ');
-      res.render('index', { title: 'index', message:1 });
+      console.log('비밀번호 틀림');
+      res.render('change_pw', { title: 'change_pw', message:2 });
     }
   });
-  res.redirect('/');
+  //res.redirect('/');
 });
 
 module.exports = router;

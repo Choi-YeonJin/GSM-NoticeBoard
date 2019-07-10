@@ -39,3 +39,29 @@ exports.UserLogin = function (id, pw, callback) {
     }
     );
   };
+
+exports.ChangePassword = function(id,pw,repw,callback){
+  if(!db) return;
+  var shasum = crypto.createHash('sha256');
+    shasum.update(pw);
+    //shasum.end();
+    var hashpw = shasum.digest('hex');
+    var repassword = db.collection('User').find({ "id": id, "password": hashpw});
+  repassword.toArray(function (err, docs) {
+    if (err) {
+      callback(err, null);
+    }
+    else if (docs) {
+      var shasum1 = crypto.createHash('sha256');
+      shasum1.update(repw);
+      var rehashpw = shasum1.digest('hex');
+      db.collection('User').update({ 'id':id,'password':hashpw},
+      {$set:{'id':id,'password':rehashpw}});
+      callback(null, docs);
+    }
+    else {
+      callback(null, null);
+    }
+  }
+  );
+}
