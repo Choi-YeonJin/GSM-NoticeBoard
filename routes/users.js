@@ -7,11 +7,19 @@ var express = require('express');
     
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'index', session: req.session.data, message });
+  if(req.session.UserLogin){
+    res.render('logout',{id:req.session.data[0].id});
+  }else{
+    res.render('index',{ title: 'index', session: req.session.data, message });
+  }
 });
 
 router.get('/home', function (req, res, next) {
-  res.render('home', { title: 'home',session: req.session.data });
+  if(req.session.isLogin){
+    res.render('home', { title: 'home',session: req.session.data });
+  }else{
+    res.send('Login errer');
+  }
 });
 
 router.get('/logout', function (req, res, next) {
@@ -26,6 +34,23 @@ router.get('/mypage', function (req, res, next) {
   res.render('change_pw', { title: 'mypage',session: req.session, message });
 });
 
+router.post('/register', (req, res) => {
+  let uid = req.body.user_id;
+  let upwd = req.body.password;
+  duplicate(req, res, uid, upwd);
+});
+
+router.post('/', (req, res) => {
+  let uid = req.body.user_id;
+  let upwd = req.body.password;
+  duplicate(req, res, uid, upwd);
+});
+
+router.post('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
+
 var message;
 router.post('/login', function (req, res) {
   console.log(`post in`);
@@ -35,10 +60,10 @@ router.post('/login', function (req, res) {
     }
     else if (docs.length > 0) {
       console.log('login suceess');
-      req.session.data = docs;
+      req.session.isLogin = true;
+      UserID = docs[0].id;
       console.log('session suceess');
-      UserID = req.session.data[0].id;
-      res.render('home', { title: 'index', name: req.session.data[0].name ,session: req.session.data, message });
+      res.redirect('/home');
     }
     else {
       console.log('login error');

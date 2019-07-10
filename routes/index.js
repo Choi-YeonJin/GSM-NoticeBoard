@@ -10,4 +10,4 @@ router.get('/board', function (req, res, next) {
     res.render('board', { title: 'index', session: req.session.data });
   });
 
-module.exports = router;
+module.exports = router; 

@@ -3,10 +3,12 @@ var createError = require('http-errors'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
+  session = require('express-session');
+  MongoStore = require('connect-mongo')(session);
   indexRouter = require('./routes/index'),
   usersRouter = require('./routes/users'),
   app = express();
-const session = require('express-session');
+  
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,10 +23,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(session({
   key:'sid',
-  secret:'secret',
-  cookie: {
-    maxAge: 1000*60*60
-  }
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({
+      url: "mongodb://localhost:27017/Network",
+      collection: "sessions"
+  })
 }));
 
 app.use('/', usersRouter);
