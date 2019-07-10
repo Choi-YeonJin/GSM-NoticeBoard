@@ -1,36 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <form method="POST" action="/change_pw">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-5 col-md-3">
-                    <div class="form-login">
-                        <h4>비밀번호 변경</h4>
-                        <input type="text" name="현재비밀번호" class="form-control input-sm chat-input"
-                            placeholder="현재비밀번호" />
-                        </br>
-                        <input type="text" name="변경비밀번호" class="form-control input-sm chat-input"
-                            placeholder="변경비밀번호" />
-                        </br>
-                        <div class="wrapper">
-                            <span class="group-btn">
-                                <input type="submit" class="btn btn-primary btn-md" class="fa fa-sign-in" value="비밀번호 변경">
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</body>
-
-</html>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<form action="/change_pw" method="POST">
+<div class="container">
+<div class="row">
+<div class="col-sm-12">
+<h1>비밀번호 변경</h1>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+<br>
+<form method="post" id="passwordForm">
+<input type="password" class="input-lg form-control" name="현재비밀번호" id="password1" placeholder="현재비밀번호" autocomplete="off">
+<br>
+<input type="password" class="input-lg form-control" name="변경비밀번호" id="password2" placeholder="변경비밀번호" autocomplete="off">
+<br><br>
+<input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password">
+</form>
+</div><!--/col-sm-6-->
+</div><!--/row-->
+</form>
+</div>

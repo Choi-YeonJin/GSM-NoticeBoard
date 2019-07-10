@@ -39,14 +39,26 @@ exports.UserLogin = function (id, pw, callback) {
     }
     );
   };
-exports.Username = function(name,callback){
+
+exports.ChangePassword = function(id,pw,repw,callback){
   if(!db) return;
-  var name = db.collection('User').find({"name":name})
-  name.toArray(function (err, docs) {
+  var shasum = crypto.createHash('sha256');
+    shasum.update(pw);
+    //shasum.end();
+    var hashpw = shasum.digest('hex');
+    var repassword = db.collection('User').find({ "id": id, "password": hashpw});
+  repassword.toArray(function (err, docs) {
+
     if (err) {
       callback(err, null);
     }
     else if (docs) {
+      var shasum1 = crypto.createHash('sha256');
+      shasum1.update(repw);
+      var rehashpw = shasum1.digest('hex');
+      db.collection('User').update({ 'id':id,'password':hashpw},
+      {$set:{'id':id,'password':rehashpw}});
+
       callback(null, docs);
     }
     else {
@@ -54,4 +66,5 @@ exports.Username = function(name,callback){
     }
   }
   );
-};
+}
+
