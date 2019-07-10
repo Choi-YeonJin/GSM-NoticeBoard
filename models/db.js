@@ -19,34 +19,33 @@ db.on("error", function (err) {
 });
 
 exports.UserLogin = function (id, pw, callback) {
-    if (!db) return;
-    var shasum = crypto.createHash('sha256');
-    shasum.update(pw);
-    //shasum.end();
-    var hashpw = shasum.digest('hex');
-    var login = db.collection('User').find({ "id": id, "password": hashpw });
-
-    login.toArray(function (err, docs) {
-      if (err) {
-        callback(err, null);
-      }
-      else if (docs) {
-        callback(null, docs);
-      }
-      else {
-        callback(null, null);
-      }
-    }
-    );
-  };
-
-exports.ChangePassword = function(id,pw,repw,callback){
-  if(!db) return;
+  if (!db) return;
   var shasum = crypto.createHash('sha256');
-    shasum.update(pw);
-    //shasum.end();
-    var hashpw = shasum.digest('hex');
-    var repassword = db.collection('User').find({ "id": id, "password": hashpw});
+  shasum.update(pw);
+  //shasum.end();
+  var hashpw = shasum.digest('hex');
+  var login = db.collection('User').find({ "id": id, "password": hashpw });
+
+  login.toArray(function (err, docs) {
+    if (err) {
+      callback(err, null);
+    }
+    else if (docs) {
+      callback(null, docs);
+    }
+    else {
+      callback(null, null);
+    }
+  }
+  );
+};
+
+exports.ChangePassword = function (id, pw, repw, callback) {
+  if (!db) return;
+  var shasum = crypto.createHash('sha256');
+  shasum.update(pw);
+  var hashpw = shasum.digest('hex');
+  var repassword = db.collection('User').find({ "id": id, "password": hashpw });
   repassword.toArray(function (err, docs) {
     if (err) {
       callback(err, null);
@@ -55,8 +54,8 @@ exports.ChangePassword = function(id,pw,repw,callback){
       var shasum1 = crypto.createHash('sha256');
       shasum1.update(repw);
       var rehashpw = shasum1.digest('hex');
-      db.collection('User').update({ 'id':id,'password':hashpw},
-      {$set:{'id':id,'password':rehashpw}});
+      db.collection('User').update({ 'id': id, 'password': hashpw },
+        { $set: { 'id': id, 'password': rehashpw } });
       callback(null, docs);
     }
     else {
@@ -66,18 +65,17 @@ exports.ChangePassword = function(id,pw,repw,callback){
   );
 }
 
-exports.ChangeName = function(id,name,rename,callback){
-  if(!db) return;
-  var name = db.collection('User').find({ "id": id, "name": name});
+exports.ChangeName = function (id, name, rename, callback) {
+  if (!db) return;
+  var name = db.collection('User').find({ "id": id, "name": name });
   name.toArray(function (err, docs) {
     if (err) {
       callback(err, null);
     }
     else if (docs) {
-      UserName = docs[0].rename;
-      db.collection('User').findOneAndUpdate({ 'id':id,'name':name},
-      {$set:{'id':id,'name':rename}});
-      
+      db.collection('User').updateMany({ 'id': id, 'name': name },
+        { $set: { 'id': id, 'name': rename } });
+
       callback(null, docs);
     }
     else {
