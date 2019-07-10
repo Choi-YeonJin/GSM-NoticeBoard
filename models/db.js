@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 var crypto = require('crypto');
 
-
-// shasum.update('123456789');
-// var output = shasum.digest('hex');
-
-
-mongoose.connect('mongodb://localhost:27017/Network', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/Network', { useNewUrlParser: true, autoIndex:false });
 mongoose.Promise = global.Promise;
 
 var db = mongoose.connection;
@@ -67,16 +62,16 @@ exports.ChangePassword = function (id, pw, repw, callback) {
 
 exports.ChangeName = function (id, name, rename, callback) {
   if (!db) return;
-  var name = db.collection('User').find({ "id": id, "name": name });
-  name.toArray(function (err, docs) {
+  var name = db.collection('User').findOne({ "id": id, "name": name }, function (err, docs) {
     if (err) {
       callback(err, null);
     }
     else if (docs) {
-      db.collection('User').updateMany({ 'id': id, 'name': name },
-        { $set: { 'id': id, 'name': rename } });
-
-      callback(null, docs);
+      db.collection('User').updateOne({ 'id': id }
+      ,{ $set: {'name': rename } }).then(err => {
+        if (err) callback(err, null);
+        callback(null, docs);
+      });
     }
     else {
       callback(null, null);

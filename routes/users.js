@@ -100,11 +100,11 @@ router.post('/change_name', function (req, res, next) {
     }
     else if (docs.length > 0) {
       console.log('name 변경 OK');
-      res.send(docs);
+      res.redirect('/logout');
     }
     else {
       console.log('err');
-      res.redirect('/');
+      res.redirect('/logout');
     }
   });
 });
