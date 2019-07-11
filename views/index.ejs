@@ -1,8 +1,13 @@
 <% if(message == 1) { %>
-    <script>
-        alert('로그인 오류.');
-    </script>
+<script>
+    alert('로그인 오류');
+</script>
+<% } else if(message == 2) { %>
+<script>
+    alert('로그인을 해주세요');
+</script>
 <% } %>
+
 
 
 <!DOCTYPE html>
@@ -13,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- <title>GSM 건의</title> -->
-    <title><%- title %></title>
+    <title><%= title %></title>
 
     <link rel="stylesheet" href="gsmcss.css">
 </head>
@@ -26,10 +31,9 @@
                 <div class="col-md-offset-5 col-md-3">
                     <div class="form-login">
                         <h4>GSM에 오신걸 환영합니다.</h4>
-                        <input type="text" name="userName" class="form-control input-sm chat-input"
-                            placeholder="username" />
+                        <input type="text" name="id" class="form-control input-sm chat-input" placeholder="id" />
                         </br>
-                        <input type="text" name="userPassword" class="form-control input-sm chat-input"
+                        <input type="password" name="userPassword" class="form-control input-sm chat-input"
                             placeholder="password" />
                         </br>
                         <div class="wrapper">

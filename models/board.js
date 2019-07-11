@@ -1,18 +1,10 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-var commentSchema = new Schema({
-    contents: String,
-    author: String,
-    comment_date: {type: Date, default: Date.now()}
+var postSchema = mongoose.Schema({
+  title: { type: String, required: true },
+  body: { type: String, required: true },
+  author: { type: String, required: true },
 });
 
-var boardSchema = new Schema({
-    title: String,
-    contents: String,
-    author: String,
-    board_date: {type: Date, default: Date.now()},
-    comments: [commentSchema]
-});
-
-module.exports = mongoose.model('board', boardSchema);
+var Post = mongoose.model('post', postSchema);
+module.exports = Post;

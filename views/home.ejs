@@ -1,162 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="gsmhome.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title><%=title%></title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/pricing/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+
     <title>GSM 건의</title>
     <link rel="stylesheet" href="gsmhome.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
-<body>
-    <h3 style="float: left">건의 사항</h3>
-    <h4> <%= name %>님 환영합니 </h4>
+
+<tbody>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">건의 사항</h5>
+        <h5 style="margin-right: auto!important"><%=name%>님 환영합니다</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="/index/post">글쓰기</a>
+            <a class="p-2 text-dark" href="/mypage">마이페이지</a>
+        </nav>
+        <a class="btn btn-outline-primary" href="/logout">logout</a>
+    </div>
     <br>
-    <a href="/mypage" style='border:2px;padding: 1px 6px;color: black;float: right;-webkit-appearance: button;cursor: pointer;'>마이페이지</a>
-    <form action="/logout" method="GET">
-        <input type="submit" value="로그아웃">
-    </form>
-<br>
-<br>
-<br>
-<br>
-<div class="container">
-    <div class="notice notice-success">
-        <strong>GSM 건의(1)</strong> notice-success <span class="pull-right text-success readMore">Read</span>
-        <div class="desc">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>        
-        </div>
-    </div>
-    <div class="notice notice-danger">
-        <strong>GSM 건의(2)</strong> notice-danger  <span class="pull-right text-danger readMore">Read</span>
+    <br>
+    <div class="container">
+     <% for(var i=0;i<5; i++){ %>
+        <div class="notice notice-success">
+            <strong>GSM 건의()</strong><%=subject%><span class="pull-right text-success readMore">Read</span>
             <div class="desc">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>        
-        </div>
-    </div>
-    <div class="notice notice-info">
-        <strong>GSM 건의(3)</strong> notice-info  <span class="pull-right text-info readMore">Read</span>
-            <div class="desc">
-            
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>        
-        </div>
-    </div>
-    <div class="notice notice-warning">
-        <strong>GSM 건의(4)</strong> notice-warning  <span class="pull-right text-warning readMore">Read</span>
-            <div class="desc">
-            
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>        
-        </div>
-    </div>
-    <div class="notice notice-lg">
-        <strong>GSM 건의(5)</strong> notice-lg  <span class="pull-right readMore">Read</span>
-            <div class="desc">
-            
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>        
-        </div>
-    </div>
-    <div class="notice notice-sm">
-        <strong>GSM 건의(6)</strong> notice-sm  <span class="pull-right readMore">Read</span>
-            <div class="desc">
-            
-            <table class="table table-condensed table-hover">
-                <thead>
-                    <tr>
-                        <th>번호</th>                               
-                        <th>날짜</th>                                   
-                        <th>제목</th>                                                                 
-                        <th>작성자</th>                                                                 
-                        <th>아이디</th>                                                                  
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>                          
-                        <td>2019/07/04</td>                                                
-                        <td>GSM 건의(1)</td>
-                        <td> Test1</td>                                                                                             
-                        <td>s18001</td>                                                  
-                    </tr>
-                    <tr>
-                        <td>2</td>                          
-                        <td>2019/07/04</td>                                                
-                        <td>GSM 건의(2)</td>
-                        <td> Test2</td>                                                                                             
-                        <td>s18002</td>  
-                    </tr>
-                    <tr>
-                        <td>3</td>                          
-                        <td>2019/07/04</td>                                                
-                        <td>GSM 건의(3)</td>
-                        <td> Test3</td>                                                                                             
-                        <td>s18003</td>  
-                    </tr>
-                    <tr>
-                        <td>4</td>                          
-                        <td>2019/07/04</td>                                                
-                        <td>GSM 건의(4)</td>
-                        <td> Test4</td>                                                                                             
-                        <td>s18004</td>  
-                    </tr>
-                    <tr>
-                        <td>5</td>                          
-                        <td>2019/07/04</td>                                                
-                        <td>GSM 건의(5)</td>
-                        <td> Test5</td>                                                                                             
-                        <td>s18005</td>  
-                    </tr>
-                </tbody>
-            </table>
-            <div class="row">
-                <div class="col-md-12">
-                    <p>로그아웃 하려면 <a class="logout" href="#">here.</a></p>                                         
-                    <p>비밀번호 바꾸려면 <a class="logout" href="#">here.</a> </p>                       
-                </div>
+                <p>
+                   <%=content%>
+                </p>
             </div>
         </div>
-    </div>
-</div>
-<script>
-$(document).ready(function(){
+        <% } %>
+    <script>
+        $(document).ready(function () {
+            $(".readMore").click(function () {
+                var This = $(this);
+                $(this).next().toggle(function () {
+                    if (This.text() == "Read") {
+                        This.text("Hide")
 
-
-$(".readMore").click(function(){
-var This=$(this);    
-$(this).next().toggle(function(){
-    if(This.text()=="Read"){
-      This.text("Hide") 
-    }
-    else{
-        This.text("Read") 
-    }
-})
-});})
-</script>
-</body>
+                    }
+                    else {
+                        This.text("Read")
+                    }
+                })
+            });
+        })
+    </script>
+</tbody>
 </html>

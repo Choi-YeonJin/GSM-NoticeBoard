@@ -1,25 +1,59 @@
+<% if(message == 1) { %>
+<script>
+    alert('현재비밀번호 오류.');
+</script>
+<% } %>
+
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<title><%=title%></title>
 <form action="/change_pw" method="POST">
-<div class="container">
-<div class="row">
-<div class="col-sm-12">
-<h1>비밀번호 변경</h1>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-6 col-sm-offset-3">
-<br>
-<form method="post" id="passwordForm">
-<input type="password" class="input-lg form-control" name="현재비밀번호" id="password1" placeholder="현재비밀번호" autocomplete="off">
-<br>
-<input type="password" class="input-lg form-control" name="변경비밀번호" id="password2" placeholder="변경비밀번호" autocomplete="off">
-<br><br>
-<input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>비밀번호 변경</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <br>
+                    <input type="password" class="input-lg form-control" name="현재비밀번호" id="password1"
+                        placeholder="현재비밀번호" autocomplete="off">
+                    <br>
+                    <input type="password" class="input-lg form-control" name="변경비밀번호" id="password2"
+                        placeholder="변경비밀번호" autocomplete="off">
+                    <br><br>
+                    <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg"
+                        data-loading-text="Changing Password..." value="Change Password">
+                </form>
+            </div>
+            <!--/col-sm-6-->
+        </div>
+        <!--/row-->
 </form>
-</div><!--/col-sm-6-->
-</div><!--/row-->
+
+<form action="/change_name" method="POST">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>이름 변경</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <br>
+                    <input type="text" class="input-lg form-control" name="rename" id="rename" placeholder="rename"
+                        autocomplete="off">
+                    <br><br>
+                    <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg"
+                        data-loading-text="Changing name..." value="Change name">
+                </form>
+            </div>
+            <!--/col-sm-6-->
+        </div>
+        <!--/row-->
 </form>
+
 </div>

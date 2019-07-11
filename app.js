@@ -3,10 +3,12 @@ var createError = require('http-errors'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
-  session = require('express-session'),
-  indexRouter = require('./routes/index'),
+  session = require('express-session');
+MongoStore = require('connect-mongo')(session);
+indexRouter = require('./routes/index'),
   usersRouter = require('./routes/users'),
   app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,17 +22,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(session({
-  key:'sid',
-  secret:'secret',
-  cookie: {
-    maxAge: 1000*60*60
-  }
+  key: 'sid',
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({
+    url: "mongodb://localhost:27017/Network",
+    collection: "sessions"
+  })
+}));
 
 app.use('/', usersRouter);
 app.use('/index', indexRouter);
 
 //catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
