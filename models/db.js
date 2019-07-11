@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 var crypto = require('crypto');
 
+//DB연결
 mongoose.connect('mongodb://localhost:27017/Network', { useNewUrlParser: true, autoIndex:false });
 mongoose.Promise = global.Promise;
 
@@ -13,6 +14,7 @@ db.on("error", function (err) {
   console.log("DB ERROR :", err);
 });
 
+//login
 exports.UserLogin = function (id, pw, callback) {
   if (!db) return;
   var shasum = crypto.createHash('sha256');
@@ -35,6 +37,7 @@ exports.UserLogin = function (id, pw, callback) {
   );
 };
 
+//비밀번호 변경
 exports.ChangePassword = function (id, pw, repw, callback) {
   if (!db) return;
   var shasum = crypto.createHash('sha256');
@@ -60,6 +63,7 @@ exports.ChangePassword = function (id, pw, repw, callback) {
   );
 }
 
+//이름변경
 exports.ChangeName = function (id, name, rename, callback) {
   if (!db) return;
   var name = db.collection('User').findOne({ "id": id, "name": name }, function (err, docs) {
@@ -79,3 +83,21 @@ exports.ChangeName = function (id, name, rename, callback) {
   }
   );
 }
+
+//게시판
+exports.Insertboard = function (title, content, callback) {
+  if (!db) return;
+  var post = db.collection('Post').insertOne({ "title":title, "body":content}, function (err, docs) {
+    if (err) {
+      callback(err, null);
+    }
+    else if (docs) {
+      callback(null, docs);
+      }
+    else {
+      callback(null, null);
+    }
+  }
+  );
+}
+

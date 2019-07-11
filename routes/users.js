@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/home', function (req, res, next) {
   if (req.session.isLogin) {
-    res.render('home', { title: 'home', name: UserName, session: req.session.data });
+    res.render('home', { title: 'home', name: UserName });
   } else {
     res.send('Login errer');
   }
@@ -40,12 +40,6 @@ router.get('/mypage', function (req, res, next) {
   }
 });
 
-router.post('/', (req, res) => {
-  let uid = req.body.user_id;
-  let upwd = req.body.password;
-  duplicate(req, res, uid, upwd);
-});
-
 router.post('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -61,11 +55,12 @@ router.post('/login', function (req, res) {
     else if (docs.length > 0) {
       console.log('login suceess');
       req.session.isLogin = true;
+      req.session.userinfo = docs[0].name;
       UserID = docs[0].id;
       UserName = docs[0].name;
       console.log(UserName);
       console.log('session suceess');
-      res.render('home', { title: 'home', name: docs[0].name });
+      res.render('home', { title: 'home', name: docs[0].name,subject:'제목',content:'내용' });
     }
     else {
       console.log('login error');
