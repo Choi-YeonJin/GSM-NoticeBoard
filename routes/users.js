@@ -24,8 +24,6 @@ router.get('/home', function (req, res, next) {
   }
 });
 
-});
-
 router.get('/mypage', function (req, res, next) {
   console.log(`mypage button sucess`);
   if (req.session.isLogin) {
